@@ -73,9 +73,9 @@ public class Animal implements ISellable
         String reserved = "not reserved";
         if (this.reservedBy != null)
         {
-            reserved = "reserved by " + this.reservedBy.Name;
+            reserved = "Reserved by= " + this.reservedBy.Name;
         }
-        return "Name= " + Name + ", Gender= " + gender + ", ReservedBy= " + reservedBy;
+        return "Name= " + Name + ", Gender= " + gender + reserved;
     }
 
 }
