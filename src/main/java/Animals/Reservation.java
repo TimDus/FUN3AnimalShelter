@@ -22,6 +22,11 @@ public class Reservation
         this.Animals.add(new Cat(name, gender, badHabits, price));
     }
 
+    public void newCat(String name, Gender gender, String badHabits, String price)
+    {
+        this.Animals.add(new Cat(name, gender, badHabits, Double.parseDouble(price)));
+    }
+
     public void newDog(String name, Gender gender)
     {
         int dogs = 0;
@@ -35,6 +40,19 @@ public class Reservation
         Double price = (double)Math.max(500 - dogs * 50, 50);
 
         this.Animals.add(new Dog(name, gender, price));
+    }
+
+    public void newDog(String name, Gender gender, String price)
+    {
+        int dogs = 0;
+        for (Animal animal: Animals)
+        {
+            if(animal instanceof Dog){
+                dogs++;
+            }
+        }
+
+        this.Animals.add(new Dog(name, gender, Double.parseDouble(price)));
     }
 
 }

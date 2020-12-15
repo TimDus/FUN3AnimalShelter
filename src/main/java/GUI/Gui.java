@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 
 import java.io.*;
+import java.util.Scanner;
 
 public class Gui {
     public Button btreserveAnimal;
@@ -68,7 +69,7 @@ public class Gui {
             String specie = animal instanceof Dog ? "Dog" : "Cat";
             String animalInList = specie + " " + animal.getName() + " " + animal.getGender() + " " + animal.getPrice() + " ";
             if (animal.getReservedBy() != null) {
-                animalInList += " Reserved by " + animal.getReservedBy().toString();
+                animalInList += " Reserved by " + animal.getReservedBy().getName();
             }
             listViewAnimals.getItems().add(animalInList);
         }
@@ -76,11 +77,9 @@ public class Gui {
 
     public void saveList() {
         try {
-            FileOutputStream fileOut =
-                    new FileOutputStream("Files/Shelter");
-            ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(reservation);
-            out.close();
+            BufferedWriter fileOut =
+                    new BufferedWriter(new FileWriter("Files/Shelter"));
+            fileOut.write(String.valueOf(listViewAnimals.getItems()));
             fileOut.close();
         } catch (IOException i) {
             i.printStackTrace();
@@ -89,16 +88,34 @@ public class Gui {
 
     public void loadList() {
         try {
-            FileInputStream fileIn = new FileInputStream("Files/Shelter");
-            ObjectInputStream in = new ObjectInputStream(fileIn);
-            reservation = (Reservation) in.readObject();
-            in.close();
-            fileIn.close();
+            BufferedReader reader = new BufferedReader(new FileReader("Files/Shelter"));
+
+            String[] split = reader.readLine().split(",");
+
+            for(int i = 0; i < split.length; i++)
+            {
+                String[] splitreservation = split[i].split(" ");
+                if(splitreservation[0] == "[Dog" || splitreservation[0] == "Dog")
+                {
+                    Gender gender = Gender.Male;
+                    if(splitreservation[2] == "Female")
+                    {
+                        gender = Gender.Female;
+                    }
+                    reservation.newDog(splitreservation[1], gender, splitreservation[3]);
+                }
+                else
+                {
+                    Gender gender = Gender.Male;
+                    if(splitreservation[2] == "Female")
+                    {
+                        gender = Gender.Female;
+                    }
+                    reservation.newCat(splitreservation[1], gender, "TBA", splitreservation[3]);
+                }
+            }
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (ClassNotFoundException c) {
-            c.printStackTrace();
-            return;
         }
 
         updateTextArea();

@@ -4,32 +4,32 @@ import java.time.LocalDateTime;
 
 public class Reservor
 {
-    public String Name;
-    public LocalDateTime ReservedAt;
+    private String name;
+    private LocalDateTime reservedAt;
 
     public String getName()
     {
-        return Name;
+        return name;
     }
 
     public void setName(String name)
     {
-        Name = name;
+        name = name;
     }
 
     public LocalDateTime getReservedAt()
     {
-        return ReservedAt;
+        return reservedAt;
     }
 
     public void setReservedAt(LocalDateTime reservedAt)
     {
-        ReservedAt = reservedAt;
+        reservedAt = reservedAt;
     }
 
     public Reservor(String name, LocalDateTime reservedAt)
     {
-        this.Name = name;
-        this.ReservedAt = reservedAt;
+        this.name = name;
+        this.reservedAt = reservedAt;
     }
 }
