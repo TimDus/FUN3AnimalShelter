@@ -28,20 +28,15 @@ public class ReservorTest
     @Test
     void TestPropertiesName() {
         //ARRANGE
-        Reservor reservor = new Reservor("Jan", LocalDateTime.now());
-
-        //ACT
-        reservor.setName("Piet");
+        Reservor reservor = new Reservor("Piet", LocalDateTime.now());
 
         String name = "Piet";
-        Assertions.assertEquals(reservor.getName(), name);
+        Assertions.assertEquals(name, reservor.getName());
     }
 
     @Test
     void TestPropertiesReservedDate() {
-        Reservor reservor = new Reservor("Jan", LocalDateTime.now());
-
-        reservor.setReservedAt(LocalDateTime.of(2020, 11, 11, 11, 0, 0));
+        Reservor reservor = new Reservor("Jan", LocalDateTime.of(2020, 11, 11, 11, 0, 0));
 
         LocalDateTime date = LocalDateTime.of(2020, 11, 11, 11, 0, 0);
         Assertions.assertEquals(reservor.getReservedAt(), date);
