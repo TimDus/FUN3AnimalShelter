@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Gui {
@@ -90,24 +91,36 @@ public class Gui {
         try {
             BufferedReader reader = new BufferedReader(new FileReader("Files/Shelter"));
 
+            String[] trimmedArray = new String[]{};
             String[] split = reader.readLine().split(",");
 
             for(int i = 0; i < split.length; i++)
             {
                 String[] splitreservation = split[i].split(" ");
-                if(splitreservation[0] == "[Dog" || splitreservation[0] == "Dog")
+                if(splitreservation[0].equals("[Dog") || splitreservation[0].equals("Dog") || splitreservation[1].equals("Dog"))
                 {
                     Gender gender = Gender.Male;
-                    if(splitreservation[2] == "Female")
+                    if(splitreservation[1].equals("Dog"))
+                    {
+                        if(splitreservation[3].equals("Female"))
+                        {
+                            gender = Gender.Female;
+                        }
+                        reservation.newDog(splitreservation[2], gender, splitreservation[4]);
+                    }
+                    if(splitreservation[2].equals("Female") && !splitreservation[1].equals("Dog"))
                     {
                         gender = Gender.Female;
                     }
-                    reservation.newDog(splitreservation[1], gender, splitreservation[3]);
+                    if(!splitreservation[1].equals("Dog"))
+                    {
+                        reservation.newDog(splitreservation[1], gender, splitreservation[3]);
+                    }
                 }
                 else
                 {
                     Gender gender = Gender.Male;
-                    if(splitreservation[2] == "Female")
+                    if(splitreservation[2].equals("Female"))
                     {
                         gender = Gender.Female;
                     }
